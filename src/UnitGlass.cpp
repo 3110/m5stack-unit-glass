@@ -84,15 +84,16 @@ bool UnitGlass::drawCircle(uint8_t x0, uint8_t y0, uint8_t r, DrawMode mode) {
     int x = 0;
     int y = r;
     int p = 1 - r;
+    bool result = true;
     while (x <= y) {
-        drawPixel(x + x0, y + y0, mode);
-        drawPixel(y + x0, x + y0, mode);
-        drawPixel(-x + x0, y + y0, mode);
-        drawPixel(-y + x0, x + y0, mode);
-        drawPixel(-x + x0, -y + y0, mode);
-        drawPixel(-y + x0, -x + y0, mode);
-        drawPixel(x + x0, -y + y0, mode);
-        drawPixel(y + x0, -x + y0, mode);
+        result |= drawPixel(x + x0, y + y0, mode);
+        result |= drawPixel(y + x0, x + y0, mode);
+        result |= drawPixel(-x + x0, y + y0, mode);
+        result |= drawPixel(-y + x0, x + y0, mode);
+        result |= drawPixel(-x + x0, -y + y0, mode);
+        result |= drawPixel(-y + x0, -x + y0, mode);
+        result |= drawPixel(x + x0, -y + y0, mode);
+        result |= drawPixel(y + x0, -x + y0, mode);
 
         ++x;
         if (p < 0) {
@@ -102,7 +103,7 @@ bool UnitGlass::drawCircle(uint8_t x0, uint8_t y0, uint8_t r, DrawMode mode) {
             p += 2 * (x - y) + 1;
         }
     }
-    return show();
+    return result;
 #endif
 }
 
