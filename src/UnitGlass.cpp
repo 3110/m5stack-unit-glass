@@ -66,7 +66,13 @@ bool UnitGlass::drawPixel(uint8_t x, uint8_t y, DrawMode mode) {
 
 bool UnitGlass::drawLine(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2,
                          DrawMode mode) {
+#if 0
     const uint8_t data[] = {x1, y1, x2, y2, static_cast<uint8_t>(mode)};
+#else
+    const uint8_t data[] = {y1 > y2 ? x2 : x1, y1 > y2 ? y2 : y1,
+                            y1 > y2 ? x1 : x2, y1 > y2 ? y1 : y2,
+                            static_cast<uint8_t>(mode)};
+#endif
     return writeBytes(Register::DRAW_LINE, data, sizeof(data));
 }
 
